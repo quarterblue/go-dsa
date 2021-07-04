@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Node struct {
 	data int
@@ -34,6 +37,25 @@ func (ll *LinkedList) Size() int {
 
 func (ll *LinkedList) isEmpty() bool {
 	return ll.length == 0
+}
+
+// TODO
+func (ll *LinkedList) ValueAt(idx int) int {
+	return 0
+}
+
+func (ll *LinkedList) PeakFront() (d int, err error) {
+	if ll.isEmpty() {
+		return 0, errors.New("List is empty.")
+	}
+	return ll.head.data, nil
+}
+
+func (ll *LinkedList) PeakBack() (d int, err error) {
+	if ll.isEmpty() {
+		return 0, errors.New("List is empty.")
+	}
+	return ll.tail.data, nil
 }
 
 func (ll *LinkedList) PushBack(data int) (d int, err error) {
@@ -78,6 +100,54 @@ func (ll *LinkedList) PushFront(data int) (d int, err error) {
 	return data, nil
 }
 
+func (ll *LinkedList) PopFront() (d int, err error) {
+	if ll.isEmpty() {
+		return 0, errors.New("List is empty.")
+	}
+
+	if ll.head.next == nil {
+		data := ll.head.data
+		ll.head = nil
+		ll.tail = nil
+		ll.length--
+		return data, nil
+	} else {
+		data := ll.head.data
+		ll.head = ll.head.next
+		ll.length--
+		return data, nil
+	}
+}
+
+// TODO
+func (ll *LinkedList) PopBack() (d int, err error) {
+	if ll.isEmpty() {
+		return 0, errors.New("List is empty.")
+	}
+
+	return 0, nil
+}
+
+// TODO
+func (ll *LinkedList) Delete(idx int) (d int, err error) {
+	return 0, nil
+}
+
+// TODO
+func (ll *LinkedList) ValueFromEnd(n int) (d int, err error) {
+	return 0, nil
+}
+
+// TODO
+func (ll *LinkedList) Reverse() error {
+	return nil
+}
+
+// TODO
+func (ll *LinkedList) RemoveValue(data int) (d int, err error) {
+	return 0, nil
+}
+
 // Prints the list with styling
 // 8 -> 17 -> 2 -> 1 -> 87
 func (ll *LinkedList) PrintList() {
@@ -115,5 +185,19 @@ func main() {
 	newLL.PushFront(97)
 	// 7 -> 2 -> 12 -> 32 -> 8 -> 99 -> 97 -> 17 -> NULL
 	newLL.PushBack(17)
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PopFront()
 	newLL.PrintList()
 }
