@@ -105,12 +105,14 @@ func (ll *LinkedList) PopFront() (d int, err error) {
 		return 0, errors.New("List is empty.")
 	}
 
+	// There is only 1 node in the list
 	if ll.head.next == nil {
 		data := ll.head.data
 		ll.head = nil
 		ll.tail = nil
 		ll.length--
 		return data, nil
+		// General case
 	} else {
 		data := ll.head.data
 		ll.head = ll.head.next
@@ -119,13 +121,33 @@ func (ll *LinkedList) PopFront() (d int, err error) {
 	}
 }
 
-// TODO
 func (ll *LinkedList) PopBack() (d int, err error) {
 	if ll.isEmpty() {
 		return 0, errors.New("List is empty.")
 	}
 
-	return 0, nil
+	// There is only 1 node in the list
+	if ll.head.next == nil {
+		data := ll.head.data
+		ll.head = nil
+		ll.tail = nil
+		ll.length--
+		return data, nil
+		// General case
+	} else {
+		prev := ll.head
+		curr := ll.head.next
+
+		for curr.next != nil {
+			curr = curr.next
+			prev = prev.next
+		}
+
+		data := curr.data
+		prev.next = nil
+		ll.length--
+		return data, nil
+	}
 }
 
 // TODO
@@ -199,5 +221,11 @@ func main() {
 	newLL.PopFront()
 	newLL.PrintList()
 	newLL.PopFront()
+	newLL.PrintList()
+	newLL.PushFront(197)
+	newLL.PushFront(297)
+	newLL.PushFront(397)
+	newLL.PrintList()
+	newLL.PopBack()
 	newLL.PrintList()
 }
